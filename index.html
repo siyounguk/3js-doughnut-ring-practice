@@ -3,15 +3,45 @@
   <head>
     <meta charset=utf-8>
     <title>My first Three.js app</title>
-    <style>
-      body { margin: 0; }
-      canvas { width: 100%; height: 100% }
-    </style>
+
   </head>
   <body>
-    <script src="js/three.min.js"></script>
+    <script src="three.min.js"></script>
     <script>
-      // Our Javascript will go here.
+      var scene = new THREE.Scene();
+     
+      var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+      camera.zoom = 0.1;
+
+
+      var renderer = new THREE.WebGLRenderer();
+      renderer.setSize( window.innerWidth, window.innerHeight );
+      renderer.setClearColor(0x333F47, 1);
+
+      document.body.appendChild( renderer.domElement );
+
+
+
+
+      var geometry = new THREE.TorusGeometry( 1, 0.4, 09, 98, 6.3 );
+
+      var material = new THREE.MeshLambertMaterial( { color: 0x00ff00, emissive: "black" } );
+
+      material.morphTargets = true
+      var torus = new THREE.Mesh( geometry, material );
+      scene.add( torus );
+
+      camera.position.z = 5;
+
+      function render() {
+        requestAnimationFrame( render );
+
+        torus.rotation.x += 0.02;
+        // torus.rotation.y += 0.01;
+
+        renderer.render( scene, camera );
+      }
+      render();
     </script>
   </body>
 </html>
